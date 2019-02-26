@@ -1,0 +1,57 @@
+Programs Folder/program0
+OK
+
+Programs Folder/program1
+OK
+
+Programs Folder/program2
+Compilation Exception
+	Caused by found 'begim', expected begin on line 1
+
+STOP
+
+Programs Folder/program3
+Compilation Exception
+	Caused by found '', expected if on line 12
+
+STOP
+
+Programs Folder/program4
+OK
+
+Programs Folder/program5
+Compilation Exception
+	Caused by found ';', expected loop on line 8
+
+STOP
+
+Programs Folder/program6
+OK
+
+Programs Folder/program7
+Compilation Exception
+	Caused by found 'else', expected end on line 5
+
+STOP
+
+Programs Folder/program8
+Compilation Exception
+	Caused by found 'call', expected EOF on line 13
+
+STOP
+
+Programs Folder/program9
+OK
+
+Programs Folder/program10
+OK
+
+Programs Folder/program11
+OK
+
+Programs Folder/program12
+OK
+
+Programs Folder/program13
+OK
+

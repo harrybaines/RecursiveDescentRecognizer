@@ -30,8 +30,12 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
       myGenerate.insertTerminal(nextToken);
       nextToken = lex.getNextToken();
     } else {
-      myGenerate.reportError(nextToken, "found '" + nextToken.text + "' on line " + nextToken.lineNumber + ", expected " + Token.getName(symbol));
+      myGenerate.reportError(nextToken, formatErrString(nextToken, "expected " + Token.getName(symbol)));
     }
+  }
+
+  public String formatErrString(Token token, String expected) {
+    return "found '" + token.text + "' on line " + token.lineNumber + ", " + expected;
   }
 
   /**
@@ -74,6 +78,8 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
   /*
     <statement list> ::= <statement> | <statement list> ; <statement>
+
+    * 
   */
   public void _statementList_() throws IOException, CompilationException {
     commenceNonterminal("StatementList");
@@ -120,6 +126,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         _forStatement_();
         break;
       default:
+        myGenerate.reportError(nextToken, formatErrString(nextToken, "expected new statement in statement list"));
         break;
     }
 

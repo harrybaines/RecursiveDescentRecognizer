@@ -547,61 +547,7 @@ rggBEGIN StatementPart
                   rggTOKEN ; on line 7
                   rggBEGIN StatementList
                     rggBEGIN Statement
-                    rggEND Statement
-                  rggEND StatementList
-                rggEND StatementList
-              rggEND StatementList
-              rggTOKEN end on line 8
-              rggTOKEN loop on line 8
-            rggEND WhileStatement
-          rggEND Statement
-          rggTOKEN ; on line 8
-          rggBEGIN StatementList
-            rggBEGIN Statement
-              rggBEGIN AssignmentStatement
-                rggTOKEN IDENTIFIER 'text' on line 9
-                rggTOKEN := on line 9
-                rggTOKEN STRING 'the result is ' on line 9
-                rggDECL Variable: text <String>
-              rggEND AssignmentStatement
-            rggEND Statement
-            rggTOKEN ; on line 9
-            rggBEGIN StatementList
-              rggBEGIN Statement
-                rggBEGIN ProcedureStatement
-                  rggTOKEN call on line 10
-                  rggTOKEN IDENTIFIER 'put' on line 10
-                  rggTOKEN ( on line 10
-                  rggBEGIN ArgumentList
-                    rggTOKEN IDENTIFIER 'text' on line 10
-                  rggEND ArgumentList
-                  rggTOKEN ) on line 10
-                rggEND ProcedureStatement
-              rggEND Statement
-              rggTOKEN ; on line 10
-              rggBEGIN StatementList
-                rggBEGIN Statement
-                  rggBEGIN ProcedureStatement
-                    rggTOKEN call on line 11
-                    rggTOKEN IDENTIFIER 'put' on line 11
-                    rggTOKEN ( on line 11
-                    rggBEGIN ArgumentList
-                      rggTOKEN IDENTIFIER 'x1' on line 11
-                    rggEND ArgumentList
-                    rggTOKEN ) on line 11
-                  rggEND ProcedureStatement
-                rggEND Statement
-              rggEND StatementList
-            rggEND StatementList
-          rggEND StatementList
-        rggEND StatementList
-      rggEND StatementList
-    rggEND StatementList
-  rggEND StatementList
-  rggTOKEN end on line 12
-rggEND StatementPart
-rggTOKEN EOF on line 14
-rggSUCCESS
+rggERROR found 'end' on line 8, expected new statement in statement list
 
 rggFILE Programs Folder/program5
 rggBEGIN StatementPart
@@ -964,12 +910,7 @@ rggBEGIN StatementPart
         rggTOKEN ; on line 4
         rggBEGIN StatementList
           rggBEGIN Statement
-          rggEND Statement
-        rggEND StatementList
-      rggEND StatementList
-    rggEND StatementList
-  rggEND StatementList
-  rggERROR found 'else' on line 5, expected end
+rggERROR found 'else' on line 5, expected new statement in statement list
 
 rggFILE Programs Folder/program8
 rggBEGIN StatementPart

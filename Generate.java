@@ -29,6 +29,7 @@ public class Generate extends AbstractGenerate {
    */
   @Override
   public void reportError( Token token, String explanatoryMessage ) throws CompilationException {
+    System.out.println("rggERROR");
     throw new CompilationException(explanatoryMessage, token.lineNumber);
   }
 
@@ -39,10 +40,11 @@ public class Generate extends AbstractGenerate {
    * 
    * @param v The variable to add
    */
+  @Override
   public void addVariable( Variable v ) {
     if (getVariable(v.identifier) == null) {
       variables.add(v);
-      System.out.println( "rggDECL " + v );
+      System.out.println("rggDECL " + v);
     }
   }
 

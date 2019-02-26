@@ -25,12 +25,36 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   /** Accept a token based on context. */
   @Override
   public void acceptTerminal(int symbol) throws IOException, CompilationException {
+    indent();
     if (nextToken.symbol == symbol) {
       myGenerate.insertTerminal(nextToken);
       nextToken = lex.getNextToken();
     } else {
-      myGenerate.reportError(nextToken, "found '" + nextToken.text + "', expected " + Token.getName(symbol));
+      myGenerate.reportError(nextToken, "found '" + nextToken.text + " on line " + nextToken.lineNumber + "', expected " + Token.getName(symbol));
     }
+  }
+
+  /**
+   * Commences a non terminal symbol by calling the relevant method in the Generate class.
+   * This method also provides output indentation for easier reading (+ less repetition).
+   *
+   * @param nonTerminal the non terminal string to commence.
+   */
+  public void commenceNonterminal(String nonTerminal) {
+    indent();
+    myGenerate.commenceNonterminal(nonTerminal);
+    increaseTabIndent();
+  }
+
+  /**
+   * Finishes a non terminal symbol by calling the relevant method in the Generate class.
+   * This method also provides output indentation for easier reading (+ less repetition).
+   *
+   * @param nonTerminal the non terminal string to finish.
+   */
+  public void finishNonterminal(String nonTerminal) {
+    decreaseTabIndent();
+    myGenerate.finishNonterminal(nonTerminal);
   }
 
   /*
@@ -39,38 +63,31 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   */
   @Override
   public void _statementPart_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("StatementPart");
-    increaseTabIndent();
+    commenceNonterminal("StatementPart");
 
     acceptTerminal(Token.beginSymbol);
-    indent();
     _statementList_();
 
-    indent();
+    // indent();
     acceptTerminal(Token.endSymbol);
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("StatementPart");
+    finishNonterminal("StatementPart");
   }
 
   /*
     <statement list> ::= <statement> | <statement list> ; <statement>
   */
   public void _statementList_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("StatementList");
-    increaseTabIndent();
+    commenceNonterminal("StatementList");
 
     _statement_();
 
     while (nextToken.symbol == Token.semicolonSymbol) {
-      indent();
       acceptTerminal(Token.semicolonSymbol);
-      indent();
       _statementList_();
     }
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("StatementList");
+    finishNonterminal("StatementList");
   }
 
   /*
@@ -82,8 +99,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
                     <for statement>
   */
   public void _statement_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("Statement");
-    increaseTabIndent();
+    commenceNonterminal("Statement");
 
     switch (nextToken.symbol) {
       case (Token.identifier):
@@ -108,34 +124,30 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         break;
     }
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("Statement");
+    finishNonterminal("Statement");
   }
 
   /*
     <assignment statement> ::= identifier := <expression> | identifier := stringConstant
   */
   public void _assignmentStatement_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("AssignmentStatement");
-    increaseTabIndent();
-
+    commenceNonterminal("AssignmentStatement");
+    
     String variableIdentifier = nextToken.text;
 
     acceptTerminal(Token.identifier);
-    indent();
     acceptTerminal(Token.becomesSymbol);
 
     if (nextToken.symbol == Token.stringConstant) {
-      indent();
       acceptTerminal(Token.stringConstant);
-      indent();
-      myGenerate.addVariable(new Variable(variableIdentifier, Variable.Type.STRING));
     } else {
       _expression_();
     }
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("AssignmentStatement");
+    // indent();
+    myGenerate.addVariable(new Variable(variableIdentifier, Variable.Type.STRING));
+
+    finishNonterminal("AssignmentStatement");
   }
 
   /*
@@ -143,17 +155,12 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
                        if <condition> then <statement list> else <statement list> end if
   */
   public void _ifStatement_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("IfStatement");
-    increaseTabIndent();
+    commenceNonterminal("IfStatement");
 
     // Start if statement
     acceptTerminal(Token.ifSymbol);
     _condition_();
-
-    indent();
     acceptTerminal(Token.thenSymbol);
-
-    indent();
     _statementList_();
 
     // Optional else statement list
@@ -166,83 +173,61 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     acceptTerminal(Token.endSymbol);
     acceptTerminal(Token.ifSymbol);
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("IfStatement");
+    finishNonterminal("IfStatement");
   }
 
   /*
     <while statement> ::= while <condition> loop <statement list> end loop
   */
   public void _whileStatement_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("WhileStatement");
-    increaseTabIndent();
+    commenceNonterminal("WhileStatement");
 
     acceptTerminal(Token.whileSymbol);
     _condition_();
-    
-    indent();
     acceptTerminal(Token.loopSymbol);
-
-    indent();
     _statementList_();
 
-    indent();
     acceptTerminal(Token.endSymbol);
-
-    indent();
     acceptTerminal(Token.loopSymbol);
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("WhileStatement");
+    finishNonterminal("WhileStatement");
   }
 
   /*
     <procedure statement> ::= call identifier ( <argument list> )
   */
   public void _procedureStatement_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("ProcedureStatement");
-    increaseTabIndent();
+    commenceNonterminal("ProcedureStatement");
 
     acceptTerminal(Token.callSymbol);
-    indent();
-
     acceptTerminal(Token.identifier);
-    indent();
 
     acceptTerminal(Token.leftParenthesis);
-    indent();
-
     _argumentList_();
-    indent();
-
     acceptTerminal(Token.rightParenthesis);
     
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("ProcedureStatement");
+    finishNonterminal("ProcedureStatement");
   }
 
   /*
     <until statement> ::= do <statement list> until <condition>
   */
   public void _untilStatement_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("UntilStatement");
-    increaseTabIndent();
+    commenceNonterminal("UntilStatement");
 
     acceptTerminal(Token.doSymbol);
     _statementList_();
     acceptTerminal(Token.untilSymbol);
     _condition_();
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("UntilStatement");
+    finishNonterminal("UntilStatement");
   }
 
   /*
     <for statement> ::= for ( <assignment statement> ; <condition> ; <assignment statement> ) do <statement list> end loop
   */
   public void _forStatement_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("ForStatement");
-    increaseTabIndent();
+    commenceNonterminal("ForStatement");
 
     acceptTerminal(Token.forSymbol);
     acceptTerminal(Token.leftParenthesis);
@@ -258,16 +243,14 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     acceptTerminal(Token.endSymbol);
     acceptTerminal(Token.loopSymbol);
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("ForStatement");
+    finishNonterminal("ForStatement");
   }
 
   /*
     <argument list> ::= identifier | <argument list> , identifier
   */
   public void _argumentList_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("ArgumentList");
-    increaseTabIndent();
+    commenceNonterminal("ArgumentList");
     
     acceptTerminal(Token.identifier);
 
@@ -276,8 +259,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
       _argumentList_();
     }
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("ArgumentList");
+    finishNonterminal("ArgumentList");
   }
 
   /* 
@@ -286,41 +268,33 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
                     identifier <conditional operator> stringConstant
   */
   public void _condition_() throws IOException, CompilationException {
-    indent();
-    myGenerate.commenceNonterminal("Condition");
-    increaseTabIndent();
+    commenceNonterminal("Condition");
 
     acceptTerminal(Token.identifier);
     _conditionalOperator_();
 
     switch (nextToken.symbol) {
       case Token.identifier:
-        indent();
         acceptTerminal(Token.identifier);
         break;
       case Token.numberConstant:
-        indent();
         acceptTerminal(Token.numberConstant);
         break;
       case Token.stringConstant:
-        indent();
         acceptTerminal(Token.stringConstant);
         break;
       default:
         break;
     }
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("Condition");
+    finishNonterminal("Condition");
   }
 
   /*
     <conditional operator> ::= > | >= | = | /= | < | <=
   */
   public void _conditionalOperator_() throws IOException, CompilationException {
-    indent();
-    myGenerate.commenceNonterminal("ConditionalOperator");
-    increaseTabIndent();
+    commenceNonterminal("ConditionalOperator");
 
     switch (nextToken.symbol) {
       case Token.greaterThanSymbol:
@@ -345,8 +319,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         break;
     }
     
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("ConditionalOperator");
+    finishNonterminal("ConditionalOperator");
   }
 
   /*
@@ -355,20 +328,15 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
                      <expression> - <term>
   */
   public void _expression_() throws IOException, CompilationException {
-    indent();
-    myGenerate.commenceNonterminal("Expression");
-    increaseTabIndent();
+    commenceNonterminal("Expression");
 
     _term_();
-
     switch (nextToken.symbol) {
       case Token.plusSymbol:
-        indent();
         acceptTerminal(Token.plusSymbol);
         _expression_();
         break;
       case Token.minusSymbol:
-        indent();
         acceptTerminal(Token.minusSymbol);
         _expression_();
         break;
@@ -376,46 +344,37 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         break;
     }
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("Expression");
+    finishNonterminal("Expression");
   }
 
   /*
     <term> ::= <factor> | <term> * <factor> | <term> / <factor>
   */
   public void _term_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("Term");
-    increaseTabIndent();
+    commenceNonterminal("Term");
 
     _factor_();
-
     switch (nextToken.symbol) {
       case Token.timesSymbol:
-        indent();
         acceptTerminal(Token.timesSymbol);
-        indent();
         _term_();
         break;
       case Token.divideSymbol:
-        indent();
         acceptTerminal(Token.divideSymbol);
-        indent();
         _term_();
         break;
       default:
         break;
     }
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("Term");
+    finishNonterminal("Term");
   }
 
   /*
     <factor> ::= identifier | numberConstant | ( <expression> )
   */
   public void _factor_() throws IOException, CompilationException {
-    myGenerate.commenceNonterminal("Factor");
-    increaseTabIndent();
+    commenceNonterminal("Factor");
     
     switch (nextToken.symbol) {
       case Token.identifier:
@@ -434,15 +393,14 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         break;
     }
 
-    decreaseTabIndent();
-    myGenerate.finishNonterminal("Factor");
+    finishNonterminal("Factor");
   }
 
   /**
    * Indents a line in the output.txt file showing the parse tree.
    */
   public void indent() {
-    System.out.print("\r" + new String(new char[numTabs*2]).replace('\0', ' '));
+    System.out.print(new String(new char[numTabs*2]).replace('\0', ' '));
   }
 
   /**
@@ -450,7 +408,6 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
    */
   public void increaseTabIndent() {
     numTabs += 1;
-    indent();
   }
 
   /**

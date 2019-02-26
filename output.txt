@@ -15,7 +15,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2
@@ -44,7 +44,7 @@ rggDECL Variable: x1 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x2 <String>
+            rggDECL Variable: x2 <String>
           rggEND AssignmentStatement
         rggEND Statement
         rggTOKEN ; on line 4
@@ -116,7 +116,7 @@ rggDECL Variable: x2 <String>
                 rggTOKEN IDENTIFIER 'text' on line 9
                 rggTOKEN := on line 9
                 rggTOKEN STRING 'the result is ' on line 9
-rggDECL Variable: text <String>
+                rggDECL Variable: text <String>
               rggEND AssignmentStatement
             rggEND Statement
             rggTOKEN ; on line 9
@@ -172,7 +172,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2
@@ -201,7 +201,7 @@ rggDECL Variable: x1 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x2 <String>
+            rggDECL Variable: x2 <String>
           rggEND AssignmentStatement
         rggEND Statement
         rggTOKEN ; on line 4
@@ -273,7 +273,7 @@ rggDECL Variable: x2 <String>
                 rggTOKEN IDENTIFIER 'text' on line 9
                 rggTOKEN := on line 9
                 rggTOKEN STRING 'the result is ' on line 9
-rggDECL Variable: text <String>
+                rggDECL Variable: text <String>
               rggEND AssignmentStatement
             rggEND Statement
             rggTOKEN ; on line 9
@@ -316,7 +316,7 @@ rggSUCCESS
 
 rggFILE Programs Folder/program2
 rggBEGIN StatementPart
-  rggERROR
+  rggERROR found 'begim' on line 1, expected begin
 
 rggFILE Programs Folder/program3
 rggBEGIN StatementPart
@@ -333,7 +333,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2
@@ -362,7 +362,7 @@ rggDECL Variable: x1 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x2 <String>
+            rggDECL Variable: x2 <String>
           rggEND AssignmentStatement
         rggEND Statement
         rggTOKEN ; on line 4
@@ -405,7 +405,7 @@ rggDECL Variable: x2 <String>
                       rggTOKEN IDENTIFIER 'text' on line 7
                       rggTOKEN := on line 7
                       rggTOKEN STRING 'the result is ' on line 7
-rggDECL Variable: text <String>
+                      rggDECL Variable: text <String>
                     rggEND AssignmentStatement
                   rggEND Statement
                   rggTOKEN ; on line 7
@@ -439,7 +439,7 @@ rggDECL Variable: text <String>
                 rggEND StatementList
               rggEND StatementList
               rggTOKEN end on line 10
-              rggERROR
+              rggERROR found '' on line 12, expected if
 
 rggFILE Programs Folder/program4
 rggBEGIN StatementPart
@@ -456,7 +456,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2
@@ -485,7 +485,7 @@ rggDECL Variable: x1 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x2 <String>
+            rggDECL Variable: x2 <String>
           rggEND AssignmentStatement
         rggEND Statement
         rggTOKEN ; on line 4
@@ -562,7 +562,7 @@ rggDECL Variable: x2 <String>
                 rggTOKEN IDENTIFIER 'text' on line 9
                 rggTOKEN := on line 9
                 rggTOKEN STRING 'the result is ' on line 9
-rggDECL Variable: text <String>
+                rggDECL Variable: text <String>
               rggEND AssignmentStatement
             rggEND Statement
             rggTOKEN ; on line 9
@@ -618,7 +618,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2
@@ -647,7 +647,7 @@ rggDECL Variable: x1 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x2 <String>
+            rggDECL Variable: x2 <String>
           rggEND AssignmentStatement
         rggEND Statement
         rggTOKEN ; on line 4
@@ -709,7 +709,7 @@ rggDECL Variable: x2 <String>
                 rggEND StatementList
               rggEND StatementList
               rggTOKEN end on line 8
-              rggERROR
+              rggERROR found ';' on line 8, expected loop
 
 rggFILE Programs Folder/program6
 rggBEGIN StatementPart
@@ -726,7 +726,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2
@@ -755,7 +755,7 @@ rggDECL Variable: x1 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x2 <String>
+            rggDECL Variable: x2 <String>
           rggEND AssignmentStatement
         rggEND Statement
         rggTOKEN ; on line 4
@@ -873,7 +873,7 @@ rggDECL Variable: x2 <String>
                 rggTOKEN IDENTIFIER 'text' on line 9
                 rggTOKEN := on line 9
                 rggTOKEN STRING 'the result is ' on line 9
-rggDECL Variable: text <String>
+                rggDECL Variable: text <String>
               rggEND AssignmentStatement
             rggEND Statement
             rggTOKEN ; on line 9
@@ -929,7 +929,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2
@@ -958,7 +958,7 @@ rggDECL Variable: x1 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x2 <String>
+            rggDECL Variable: x2 <String>
           rggEND AssignmentStatement
         rggEND Statement
         rggTOKEN ; on line 4
@@ -969,7 +969,7 @@ rggDECL Variable: x2 <String>
       rggEND StatementList
     rggEND StatementList
   rggEND StatementList
-  rggERROR
+  rggERROR found 'else' on line 5, expected end
 
 rggFILE Programs Folder/program8
 rggBEGIN StatementPart
@@ -986,7 +986,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2
@@ -1015,7 +1015,7 @@ rggDECL Variable: x1 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x2 <String>
+            rggDECL Variable: x2 <String>
           rggEND AssignmentStatement
         rggEND Statement
         rggTOKEN ; on line 4
@@ -1087,7 +1087,7 @@ rggDECL Variable: x2 <String>
                 rggTOKEN IDENTIFIER 'text' on line 9
                 rggTOKEN := on line 9
                 rggTOKEN STRING 'the result is ' on line 9
-rggDECL Variable: text <String>
+                rggDECL Variable: text <String>
               rggEND AssignmentStatement
             rggEND Statement
             rggTOKEN ; on line 9
@@ -1125,7 +1125,7 @@ rggDECL Variable: text <String>
   rggEND StatementList
   rggTOKEN end on line 12
 rggEND StatementPart
-rggERROR
+rggERROR found 'call' on line 13, expected EOF
 
 rggFILE Programs Folder/program9
 rggBEGIN StatementPart
@@ -1142,7 +1142,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 1
@@ -1171,7 +1171,7 @@ rggDECL Variable: x1 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x3 <String>
+            rggDECL Variable: x3 <String>
           rggEND AssignmentStatement
         rggEND Statement
         rggTOKEN ; on line 3
@@ -1190,7 +1190,7 @@ rggDECL Variable: x3 <String>
                     rggEND Factor
                   rggEND Term
                 rggEND Expression
-rggDECL Variable: x2 <String>
+                rggDECL Variable: x2 <String>
               rggEND AssignmentStatement
               rggTOKEN ; on line 4
               rggBEGIN Condition
@@ -1309,7 +1309,7 @@ rggBEGIN StatementPart
             rggEND Factor
           rggEND Term
         rggEND Expression
-rggDECL Variable: x2 <String>
+        rggDECL Variable: x2 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 1
@@ -1328,7 +1328,7 @@ rggDECL Variable: x2 <String>
                 rggEND Factor
               rggEND Term
             rggEND Expression
-rggDECL Variable: x1 <String>
+            rggDECL Variable: x1 <String>
           rggEND AssignmentStatement
           rggTOKEN ; on line 2
           rggBEGIN Condition
@@ -1424,7 +1424,7 @@ rggDECL Variable: x1 <String>
                           rggEND Term
                         rggEND Term
                       rggEND Expression
-rggDECL Variable: result <String>
+                      rggDECL Variable: result <String>
                     rggEND AssignmentStatement
                   rggEND Statement
                   rggTOKEN ; on line 4
@@ -1481,7 +1481,7 @@ rggBEGIN StatementPart
         rggTOKEN IDENTIFIER 'x1' on line 2
         rggTOKEN := on line 2
         rggTOKEN STRING 'Part 1 ' on line 2
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2
@@ -1491,7 +1491,7 @@ rggDECL Variable: x1 <String>
           rggTOKEN IDENTIFIER 'x2' on line 3
           rggTOKEN := on line 3
           rggTOKEN STRING 'Part 2' on line 3
-rggDECL Variable: x2 <String>
+          rggDECL Variable: x2 <String>
         rggEND AssignmentStatement
       rggEND Statement
       rggTOKEN ; on line 3
@@ -1562,7 +1562,7 @@ rggBEGIN StatementPart
             rggEND Term
           rggEND Expression
         rggEND Expression
-rggDECL Variable: x1 <String>
+        rggDECL Variable: x1 <String>
       rggEND AssignmentStatement
     rggEND Statement
   rggEND StatementList
@@ -1580,7 +1580,7 @@ rggBEGIN StatementPart
         rggTOKEN IDENTIFIER 'x2' on line 2
         rggTOKEN := on line 2
         rggTOKEN STRING 'A string variable' on line 2
-rggDECL Variable: x2 <String>
+        rggDECL Variable: x2 <String>
       rggEND AssignmentStatement
     rggEND Statement
     rggTOKEN ; on line 2

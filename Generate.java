@@ -29,7 +29,7 @@ public class Generate extends AbstractGenerate {
    */
   @Override
   public void reportError( Token token, String explanatoryMessage ) throws CompilationException {
-    System.out.println("rggERROR");
+    System.out.println("rggERROR " + explanatoryMessage);
     throw new CompilationException(explanatoryMessage, token.lineNumber);
   }
 

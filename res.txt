@@ -6,13 +6,13 @@ OK
 
 Programs Folder/program2
 Compilation Exception
-	Caused by found 'begim on line 1', expected begin on line 1
+	Caused by found 'begim' on line 1, expected begin on line 1
 
 STOP
 
 Programs Folder/program3
 Compilation Exception
-	Caused by found ' on line 12', expected if on line 12
+	Caused by found '' on line 12, expected if on line 12
 
 STOP
 
@@ -21,7 +21,7 @@ OK
 
 Programs Folder/program5
 Compilation Exception
-	Caused by found '; on line 8', expected loop on line 8
+	Caused by found ';' on line 8, expected loop on line 8
 
 STOP
 
@@ -30,13 +30,13 @@ OK
 
 Programs Folder/program7
 Compilation Exception
-	Caused by found 'else on line 5', expected end on line 5
+	Caused by found 'else' on line 5, expected end on line 5
 
 STOP
 
 Programs Folder/program8
 Compilation Exception
-	Caused by found 'call on line 13', expected EOF on line 13
+	Caused by found 'call' on line 13, expected EOF on line 13
 
 STOP
 

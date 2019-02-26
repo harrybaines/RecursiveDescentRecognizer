@@ -22,7 +22,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     lex = new LexicalAnalyser(filename);
   }
 
-  /** Accept a token based on context. */
+  /** Accept a token based on context and indent the output for the new terminal. */
   @Override
   public void acceptTerminal(int symbol) throws IOException, CompilationException {
     indent();
@@ -30,7 +30,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
       myGenerate.insertTerminal(nextToken);
       nextToken = lex.getNextToken();
     } else {
-      myGenerate.reportError(nextToken, "found '" + nextToken.text + " on line " + nextToken.lineNumber + "', expected " + Token.getName(symbol));
+      myGenerate.reportError(nextToken, "found '" + nextToken.text + "' on line " + nextToken.lineNumber + ", expected " + Token.getName(symbol));
     }
   }
 
@@ -67,8 +67,6 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
     acceptTerminal(Token.beginSymbol);
     _statementList_();
-
-    // indent();
     acceptTerminal(Token.endSymbol);
 
     finishNonterminal("StatementPart");
@@ -82,6 +80,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
     _statement_();
 
+    // Program4 line 7...
     while (nextToken.symbol == Token.semicolonSymbol) {
       acceptTerminal(Token.semicolonSymbol);
       _statementList_();
@@ -133,8 +132,8 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   public void _assignmentStatement_() throws IOException, CompilationException {
     commenceNonterminal("AssignmentStatement");
     
+    // Keep reference to variable identifier
     String variableIdentifier = nextToken.text;
-
     acceptTerminal(Token.identifier);
     acceptTerminal(Token.becomesSymbol);
 
@@ -144,9 +143,12 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
       _expression_();
     }
 
-    // indent();
+    // Deal with variables - if declaring, indent output, otherwise ignore
+    if (myGenerate.getVariable(variableIdentifier) == null) {
+      indent();
+    }
+    
     myGenerate.addVariable(new Variable(variableIdentifier, Variable.Type.STRING));
-
     finishNonterminal("AssignmentStatement");
   }
 
@@ -415,6 +417,9 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
    */
   public void decreaseTabIndent() {
     numTabs -= 1;
+    if (numTabs < 0) {
+      numTabs = 0;
+    }
     indent();
   }
 }

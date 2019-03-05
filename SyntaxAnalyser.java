@@ -35,7 +35,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   }
 
   public String formatErrString(Token token, String expected) {
-    return "found '" + token.text + "' on line " + token.lineNumber + ", " + expected;
+    return "found '" + token.text + "', " + expected;
   }
 
   /**
@@ -78,15 +78,12 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
   /*
     <statement list> ::= <statement> | <statement list> ; <statement>
-
-    * 
   */
   public void _statementList_() throws IOException, CompilationException {
     commenceNonterminal("StatementList");
 
     _statement_();
 
-    // Program4 line 7...
     while (nextToken.symbol == Token.semicolonSymbol) {
       acceptTerminal(Token.semicolonSymbol);
       _statementList_();
@@ -104,29 +101,34 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
                     <for statement>
   */
   public void _statement_() throws IOException, CompilationException {
-    commenceNonterminal("Statement");
-
     switch (nextToken.symbol) {
       case (Token.identifier):
+        commenceNonterminal("Statement");
         _assignmentStatement_();
         break;
       case (Token.ifSymbol):
+        commenceNonterminal("Statement");
         _ifStatement_();
         break;
       case (Token.whileSymbol):
+        commenceNonterminal("Statement");
         _whileStatement_();
         break;
       case (Token.callSymbol):
+        commenceNonterminal("Statement");
         _procedureStatement_();
         break;
       case (Token.untilSymbol):
+        commenceNonterminal("Statement");
         _untilStatement_();
         break;
       case (Token.forSymbol):
+        commenceNonterminal("Statement");
         _forStatement_();
         break;
       default:
-        myGenerate.reportError(nextToken, formatErrString(nextToken, "expected new statement in statement list"));
+        indent();
+        myGenerate.reportError(nextToken, formatErrString(nextToken, "expected a statement"));
         break;
     }
 
@@ -249,6 +251,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
     acceptTerminal(Token.doSymbol);
     _statementList_();
+
     acceptTerminal(Token.endSymbol);
     acceptTerminal(Token.loopSymbol);
 
@@ -398,7 +401,8 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         acceptTerminal(Token.rightParenthesis);
         break;
       default:
-        myGenerate.reportError(nextToken, "Expected");
+        indent();
+        myGenerate.reportError(nextToken, "expected identifier, number constant or ( expression )");
         break;
     }
 
@@ -423,8 +427,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
    * Decreases the indentation by 1 tab and indents that new amount.
    */
   public void decreaseTabIndent() {
-    numTabs -= 1;
-    if (numTabs < 0) {
+    if (--numTabs < 0) {
       numTabs = 0;
     }
     indent();

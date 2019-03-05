@@ -316,7 +316,7 @@ rggSUCCESS
 
 rggFILE Programs Folder/program2
 rggBEGIN StatementPart
-  rggERROR found 'begim' on line 1, expected begin
+  rggERROR found 'begim', expected begin
 
 rggFILE Programs Folder/program3
 rggBEGIN StatementPart
@@ -439,7 +439,7 @@ rggBEGIN StatementPart
                 rggEND StatementList
               rggEND StatementList
               rggTOKEN end on line 10
-              rggERROR found '' on line 12, expected if
+              rggERROR found '', expected if
 
 rggFILE Programs Folder/program4
 rggBEGIN StatementPart
@@ -546,8 +546,7 @@ rggBEGIN StatementPart
                   rggEND Statement
                   rggTOKEN ; on line 7
                   rggBEGIN StatementList
-                    rggBEGIN Statement
-rggERROR found 'end' on line 8, expected new statement in statement list
+                    rggERROR found 'end', expected a statement
 
 rggFILE Programs Folder/program5
 rggBEGIN StatementPart
@@ -655,7 +654,7 @@ rggBEGIN StatementPart
                 rggEND StatementList
               rggEND StatementList
               rggTOKEN end on line 8
-              rggERROR found ';' on line 8, expected loop
+              rggERROR found ';', expected loop
 
 rggFILE Programs Folder/program6
 rggBEGIN StatementPart
@@ -909,8 +908,7 @@ rggBEGIN StatementPart
         rggEND Statement
         rggTOKEN ; on line 4
         rggBEGIN StatementList
-          rggBEGIN Statement
-rggERROR found 'else' on line 5, expected new statement in statement list
+          rggERROR found 'else', expected a statement
 
 rggFILE Programs Folder/program8
 rggBEGIN StatementPart
@@ -1066,7 +1064,7 @@ rggBEGIN StatementPart
   rggEND StatementList
   rggTOKEN end on line 12
 rggEND StatementPart
-rggERROR found 'call' on line 13, expected EOF
+rggERROR found 'call', expected EOF
 
 rggFILE Programs Folder/program9
 rggBEGIN StatementPart

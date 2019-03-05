@@ -1,4 +1,3 @@
-
 /**
  *
  * lexical analyser for 254 exercise.

@@ -30,12 +30,28 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
       myGenerate.insertTerminal(nextToken);
       nextToken = lex.getNextToken();
     } else {
-      myGenerate.reportError(nextToken, formatErrString(nextToken, "expected " + Token.getName(symbol)));
+      reportError("expected " + Token.getName(symbol));
     }
   }
 
   public String formatErrString(Token token, String expected) {
     return "found '" + token.text + "', " + expected;
+  }
+
+  public void reportError(String errorStr) throws IOException, CompilationException {
+    indent();
+    String formattedErrStr = formatErrString(nextToken, errorStr);
+    myGenerate.reportError(nextToken, formattedErrStr);
+    throw new CompilationException(formattedErrStr, nextToken.symbol);
+  }
+  
+  // Deal with variables - if declaring, indent output, otherwise ignore
+  public void addVariable(String variableIdentifier, Variable.Type varType) {
+    if (myGenerate.getVariable(variableIdentifier) == null) {
+      indent();
+    }
+    
+    myGenerate.addVariable(new Variable(variableIdentifier, varType));
   }
 
   /**
@@ -58,6 +74,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
    */
   public void finishNonterminal(String nonTerminal) {
     decreaseTabIndent();
+    indent();
     myGenerate.finishNonterminal(nonTerminal);
   }
 
@@ -84,7 +101,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
     _statement_();
 
-    while (nextToken.symbol == Token.semicolonSymbol) {
+    if (nextToken.symbol == Token.semicolonSymbol) {
       acceptTerminal(Token.semicolonSymbol);
       _statementList_();
     }
@@ -127,8 +144,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         _forStatement_();
         break;
       default:
-        indent();
-        myGenerate.reportError(nextToken, formatErrString(nextToken, "expected a statement"));
+        reportError("expected a statement (if/while/procedure/until/for)");
         break;
     }
 
@@ -140,6 +156,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   */
   public void _assignmentStatement_() throws IOException, CompilationException {
     commenceNonterminal("AssignmentStatement");
+    Variable.Type varType = Variable.Type.UNKNOWN;
     
     // Keep reference to variable identifier
     String variableIdentifier = nextToken.text;
@@ -148,16 +165,13 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
     if (nextToken.symbol == Token.stringConstant) {
       acceptTerminal(Token.stringConstant);
+      varType = Variable.Type.STRING;
     } else {
-      _expression_();
+      varType = _expression_();
     }
 
-    // Deal with variables - if declaring, indent output, otherwise ignore
-    if (myGenerate.getVariable(variableIdentifier) == null) {
-      indent();
-    }
-    
-    myGenerate.addVariable(new Variable(variableIdentifier, Variable.Type.STRING));
+    // Attempt to add the variable
+    addVariable(variableIdentifier, varType);
     finishNonterminal("AssignmentStatement");
   }
 
@@ -296,6 +310,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         acceptTerminal(Token.stringConstant);
         break;
       default:
+        reportError("expected identifier/number/string");
         break;
     }
 
@@ -328,6 +343,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         acceptTerminal(Token.lessEqualSymbol);
         break;
       default:
+        reportError("expected a conditional operator (>, >=, =, /=, <, <=)");
         break;
     }
     
@@ -339,74 +355,81 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
                      <expression> + <term> |
                      <expression> - <term>
   */
-  public void _expression_() throws IOException, CompilationException {
+  public Variable.Type _expression_() throws IOException, CompilationException {
     commenceNonterminal("Expression");
+    Variable.Type varType = _term_();
 
-    _term_();
+    Variable.Type intermediateType = Variable.Type.UNKNOWN;
+
     switch (nextToken.symbol) {
       case Token.plusSymbol:
         acceptTerminal(Token.plusSymbol);
-        _expression_();
+        intermediateType = _expression_();
         break;
       case Token.minusSymbol:
         acceptTerminal(Token.minusSymbol);
-        _expression_();
-        break;
-      default:
+        intermediateType = _expression_();
         break;
     }
 
     finishNonterminal("Expression");
+    return varType;
   }
 
   /*
     <term> ::= <factor> | <term> * <factor> | <term> / <factor>
   */
-  public void _term_() throws IOException, CompilationException {
+  public Variable.Type _term_() throws IOException, CompilationException {
     commenceNonterminal("Term");
+    Variable.Type varType = _factor_();
 
-    _factor_();
     switch (nextToken.symbol) {
       case Token.timesSymbol:
         acceptTerminal(Token.timesSymbol);
-        _term_();
+        if (_term_() == Variable.Type.STRING) {
+          reportError("cannot multiply strings");
+        }
         break;
       case Token.divideSymbol:
         acceptTerminal(Token.divideSymbol);
-        _term_();
-        break;
-      default:
+        if (_term_() == Variable.Type.STRING) {
+          reportError("cannot divide strings");
+        }
         break;
     }
 
     finishNonterminal("Term");
+    return varType;
   }
 
   /*
     <factor> ::= identifier | numberConstant | ( <expression> )
   */
-  public void _factor_() throws IOException, CompilationException {
+  public Variable.Type _factor_() throws IOException, CompilationException {
     commenceNonterminal("Factor");
+    Variable.Type varType = Variable.Type.UNKNOWN;
     
     switch (nextToken.symbol) {
       case Token.identifier:
         acceptTerminal(Token.identifier);
+        varType = Variable.Type.STRING;
         break;
       case Token.numberConstant:
         acceptTerminal(Token.numberConstant);
+        varType = Variable.Type.NUMBER;
         break;
       case Token.leftParenthesis:
         acceptTerminal(Token.leftParenthesis);
-        _expression_();
+        Variable.Type intermediateType = _expression_();
         acceptTerminal(Token.rightParenthesis);
         break;
       default:
-        indent();
-        myGenerate.reportError(nextToken, "expected identifier, number constant or ( expression )");
+        reportError("expected an identifier, number constant or ( expression )");
         break;
     }
 
     finishNonterminal("Factor");
+    return varType;
   }
 
   /**
@@ -427,9 +450,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
    * Decreases the indentation by 1 tab and indents that new amount.
    */
   public void decreaseTabIndent() {
-    if (--numTabs < 0) {
+    if (--numTabs < 0)
       numTabs = 0;
-    }
-    indent();
   }
 }

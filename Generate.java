@@ -53,10 +53,6 @@ public class Generate extends AbstractGenerate {
    * 
    * @param identifier The identifier to match
    * @return A variable object matching the supplied identifier, or null if non exists.
-   * return variables.stream()
-           .filter(v -> v.identifier.equals(identifier))
-           .findFirst()
-           .get();
    */
   @Override
   public Variable getVariable( String identifier ) {

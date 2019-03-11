@@ -1,8 +1,14 @@
 Programs Folder/program0
-OK
+Compilation Exception
+	Caused by found 'hi', expected an identifier, number constant or ( expression ) on line 2
+
+STOP
 
 Programs Folder/program1
-OK
+Compilation Exception
+	Caused by found ';', cannot multiply strings on line 6
+
+STOP
 
 Programs Folder/program2
 Compilation Exception
@@ -12,34 +18,37 @@ STOP
 
 Programs Folder/program3
 Compilation Exception
-	Caused by found '', expected if on line 12
+	Caused by found ';', cannot multiply strings on line 6
 
 STOP
 
 Programs Folder/program4
 Compilation Exception
-	Caused by found 'end', expected a statement on line 8
+	Caused by found ';', cannot multiply strings on line 6
 
 STOP
 
 Programs Folder/program5
 Compilation Exception
-	Caused by found ';', expected loop on line 8
+	Caused by found ';', cannot multiply strings on line 6
 
 STOP
 
 Programs Folder/program6
-OK
+Compilation Exception
+	Caused by found '-', cannot multiply strings on line 7
+
+STOP
 
 Programs Folder/program7
 Compilation Exception
-	Caused by found 'else', expected a statement on line 5
+	Caused by found 'else', expected a statement (if/while/procedure/until/for) on line 5
 
 STOP
 
 Programs Folder/program8
 Compilation Exception
-	Caused by found 'call', expected EOF on line 13
+	Caused by found ';', cannot multiply strings on line 6
 
 STOP
 
@@ -47,7 +56,10 @@ Programs Folder/program9
 OK
 
 Programs Folder/program10
-OK
+Compilation Exception
+	Caused by found ';', cannot multiply strings on line 4
+
+STOP
 
 Programs Folder/program11
 OK

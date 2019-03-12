@@ -1,12 +1,12 @@
 Programs Folder/program0
 Compilation Exception
-	Caused by found 'hi', expected an identifier, number constant or ( expression ) on line 2
+	Caused by found 'ahahah', expected an identifier, number constant or ( expression ) on line 4
 
 STOP
 
 Programs Folder/program1
 Compilation Exception
-	Caused by found ';', cannot multiply strings on line 6
+	Caused by found '1', cannot subtract 1 from a string on line 7
 
 STOP
 
@@ -18,25 +18,25 @@ STOP
 
 Programs Folder/program3
 Compilation Exception
-	Caused by found ';', cannot multiply strings on line 6
+	Caused by found '', expected if on line 12
 
 STOP
 
 Programs Folder/program4
 Compilation Exception
-	Caused by found ';', cannot multiply strings on line 6
+	Caused by found '1', cannot subtract 1 from a string on line 7
 
 STOP
 
 Programs Folder/program5
 Compilation Exception
-	Caused by found ';', cannot multiply strings on line 6
+	Caused by found '1', cannot subtract 1 from a string on line 7
 
 STOP
 
 Programs Folder/program6
 Compilation Exception
-	Caused by found '-', cannot multiply strings on line 7
+	Caused by found 'a', a has not been declared on line 6
 
 STOP
 
@@ -48,16 +48,19 @@ STOP
 
 Programs Folder/program8
 Compilation Exception
-	Caused by found ';', cannot multiply strings on line 6
+	Caused by found '1', cannot subtract 1 from a string on line 7
 
 STOP
 
 Programs Folder/program9
-OK
+Compilation Exception
+	Caused by found '1', cannot add 1 to a string on line 4
+
+STOP
 
 Programs Folder/program10
 Compilation Exception
-	Caused by found ';', cannot multiply strings on line 4
+	Caused by found '1', cannot add 1 to a string on line 2
 
 STOP
 
@@ -65,8 +68,14 @@ Programs Folder/program11
 OK
 
 Programs Folder/program12
-OK
+Compilation Exception
+	Caused by found 'x1', x1 has not been declared on line 2
+
+STOP
 
 Programs Folder/program13
-OK
+Compilation Exception
+	Caused by found '3', cannot multiply 3 with a string on line 3
+
+STOP
 

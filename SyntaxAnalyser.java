@@ -50,8 +50,15 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     if (myGenerate.getVariable(variableIdentifier) == null) {
       indent();
     }
-    
     myGenerate.addVariable(new Variable(variableIdentifier, varType));
+  }
+
+  public Variable checkIfDeclared(Token nextToken) throws IOException, CompilationException {
+    Variable v = myGenerate.getVariable(nextToken.text);
+    if (v == null) {
+      reportError(nextToken.text + " has not been declared");
+    }
+    return v;
   }
 
   /**
@@ -357,23 +364,43 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   */
   public Variable.Type _expression_() throws IOException, CompilationException {
     commenceNonterminal("Expression");
-    Variable.Type varType = _term_();
+    Variable.Type curVar = _term_();
 
-    Variable.Type intermediateType = Variable.Type.UNKNOWN;
+    int nextSymbol = nextToken.symbol;
 
-    switch (nextToken.symbol) {
-      case Token.plusSymbol:
-        acceptTerminal(Token.plusSymbol);
-        intermediateType = _expression_();
-        break;
-      case Token.minusSymbol:
-        acceptTerminal(Token.minusSymbol);
-        intermediateType = _expression_();
-        break;
+    if (nextSymbol == Token.plusSymbol || nextSymbol == Token.minusSymbol) {
+      acceptTerminal(nextSymbol);
+
+      // Can only permit string concatenation (not -,*,/)
+      // If the next token is an identifier, check if it is a declared variable - if so, get the type and use that
+      // Otherwise check if the nextToken is just a plain string or just a number
+      Variable nextVar = null;
+
+      if (nextToken.symbol == Token.identifier) {
+        nextVar = checkIfDeclared(nextToken);
+        System.out.print(nextVar + " HAHAHA " + curVar);
+        if (nextVar != null && nextVar.type == Variable.Type.STRING && curVar != Variable.Type.STRING) {
+
+          // Error - can't add or subtract strings
+          if (nextSymbol == Token.plusSymbol) {
+            reportError("cannot add " + nextToken.text + " to a string");
+          } else if (nextSymbol == Token.minusSymbol) {
+            reportError("cannot subtract " + nextToken.text + " from a string");
+          }
+        }
+      } else {
+        if (nextSymbol == Token.plusSymbol && curVar != Variable.Type.STRING && nextToken.symbol != Token.stringConstant) {
+          reportError("cannot add " + nextToken.text + " to a string");
+        } else if (nextSymbol == Token.minusSymbol && curVar != Variable.Type.STRING && nextToken.symbol != Token.stringConstant) {
+          reportError("cannot subtract " + nextToken.text + " from a string");
+        }
+      }
+
+      _term_();
     }
 
     finishNonterminal("Expression");
-    return varType;
+    return curVar;
   }
 
   /*
@@ -383,19 +410,17 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     commenceNonterminal("Term");
     Variable.Type varType = _factor_();
 
-    switch (nextToken.symbol) {
-      case Token.timesSymbol:
-        acceptTerminal(Token.timesSymbol);
-        if (_term_() == Variable.Type.STRING) {
-          reportError("cannot multiply strings");
-        }
-        break;
-      case Token.divideSymbol:
-        acceptTerminal(Token.divideSymbol);
-        if (_term_() == Variable.Type.STRING) {
-          reportError("cannot divide strings");
-        }
-        break;
+    int nextSymbol = nextToken.symbol;
+
+    if (nextSymbol == Token.timesSymbol || nextSymbol == Token.divideSymbol) {
+      acceptTerminal(nextSymbol);
+
+      if (nextSymbol == Token.timesSymbol && varType == Variable.Type.STRING) {
+        reportError("cannot multiply " + nextToken.text + " with a string");
+      } else if (nextSymbol == Token.divideSymbol && varType == Variable.Type.STRING) {
+        reportError("cannot divide " + nextToken.text + " with a string");
+      }
+      _term_();
     }
 
     finishNonterminal("Term");
@@ -411,8 +436,11 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     
     switch (nextToken.symbol) {
       case Token.identifier:
+        // Get the type of this variable identifier (if exists)
+        Variable v = checkIfDeclared(nextToken);
+        varType = v.type;
+
         acceptTerminal(Token.identifier);
-        varType = Variable.Type.STRING;
         break;
       case Token.numberConstant:
         acceptTerminal(Token.numberConstant);

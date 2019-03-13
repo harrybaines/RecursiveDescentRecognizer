@@ -8,6 +8,7 @@
  */
 
 import java.io.IOException;
+import java.lang.Character;
 
 public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
@@ -35,28 +36,28 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   }
 
   public String formatErrString(Token token, String expected) {
-    return "found '" + token.text + "', " + expected;
+    return "(" + lex.getFilename() + ":" + token.lineNumber + ") found '" + token.text + "' (" + Token.getName(token.symbol) + "), " + expected;
   }
 
   public void reportError(String errorStr) throws IOException, CompilationException {
-    indent();
     String formattedErrStr = formatErrString(nextToken, errorStr);
+    indent();
     myGenerate.reportError(nextToken, formattedErrStr);
     throw new CompilationException(formattedErrStr, nextToken.symbol);
   }
   
   // Deal with variables - if declaring, indent output, otherwise ignore
-  public void addVariable(String variableIdentifier, Variable.Type varType) {
+  public void addVariable(String variableIdentifier, Variable.Type type) {
     if (myGenerate.getVariable(variableIdentifier) == null) {
       indent();
     }
-    myGenerate.addVariable(new Variable(variableIdentifier, varType));
+    myGenerate.addVariable(new Variable(variableIdentifier, type));
   }
 
   public Variable checkIfDeclared(Token nextToken) throws IOException, CompilationException {
     Variable v = myGenerate.getVariable(nextToken.text);
     if (v == null) {
-      reportError(nextToken.text + " has not been declared");
+      reportError("'" + nextToken.text + "' has not been declared");
     }
     return v;
   }
@@ -163,7 +164,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   */
   public void _assignmentStatement_() throws IOException, CompilationException {
     commenceNonterminal("AssignmentStatement");
-    Variable.Type varType = Variable.Type.UNKNOWN;
+    Variable.Type curType = Variable.Type.UNKNOWN;
     
     // Keep reference to variable identifier
     String variableIdentifier = nextToken.text;
@@ -172,13 +173,13 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
     if (nextToken.symbol == Token.stringConstant) {
       acceptTerminal(Token.stringConstant);
-      varType = Variable.Type.STRING;
+      curType = Variable.Type.STRING;
     } else {
-      varType = _expression_();
+      curType = _expression_();
     }
 
     // Attempt to add the variable
-    addVariable(variableIdentifier, varType);
+    addVariable(variableIdentifier, curType);
     finishNonterminal("AssignmentStatement");
   }
 
@@ -287,7 +288,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     
     acceptTerminal(Token.identifier);
 
-    while (nextToken.symbol == Token.commaSymbol) {
+    if (nextToken.symbol == Token.commaSymbol) {
       acceptTerminal(Token.commaSymbol);
       _argumentList_();
     }
@@ -364,8 +365,9 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   */
   public Variable.Type _expression_() throws IOException, CompilationException {
     commenceNonterminal("Expression");
-    Variable.Type curVar = _term_();
 
+    String curTokRef = nextToken.text;
+    Variable.Type curType = _term_();
     int nextSymbol = nextToken.symbol;
 
     if (nextSymbol == Token.plusSymbol || nextSymbol == Token.minusSymbol) {
@@ -378,29 +380,35 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
       if (nextToken.symbol == Token.identifier) {
         nextVar = checkIfDeclared(nextToken);
-        System.out.print(nextVar + " HAHAHA " + curVar);
-        if (nextVar != null && nextVar.type == Variable.Type.STRING && curVar != Variable.Type.STRING) {
-
-          // Error - can't add or subtract strings
+        // Cannot add or subtract strings
+        if (nextVar != null && (nextVar.type == Variable.Type.STRING && curType != Variable.Type.STRING) || (nextVar.type != Variable.Type.STRING && curType == Variable.Type.STRING)) {
           if (nextSymbol == Token.plusSymbol) {
-            reportError("cannot add " + nextToken.text + " to a string");
+            reportError("cannot add variable of type " + nextVar.type + " to " + curTokRef + " (" + curType.name + ")");
           } else if (nextSymbol == Token.minusSymbol) {
-            reportError("cannot subtract " + nextToken.text + " from a string");
+            reportError("cannot subtract variable of type " + nextVar.type + " from " + curTokRef + " (" + curType.name + ")");
           }
         }
       } else {
-        if (nextSymbol == Token.plusSymbol && curVar != Variable.Type.STRING && nextToken.symbol != Token.stringConstant) {
-          reportError("cannot add " + nextToken.text + " to a string");
-        } else if (nextSymbol == Token.minusSymbol && curVar != Variable.Type.STRING && nextToken.symbol != Token.stringConstant) {
-          reportError("cannot subtract " + nextToken.text + " from a string");
+        if (curType == Variable.Type.STRING && nextToken.symbol != Token.stringConstant) {
+          if (nextSymbol == Token.plusSymbol) {
+            reportError("cannot be added to " + curTokRef + " (" + curType.name + ")");
+          } else if (nextSymbol == Token.minusSymbol) {
+            reportError("cannot be subtracted from " + curTokRef + " (" + curType.name + ")");
+          }
+        } else if (curType != Variable.Type.STRING && nextToken.symbol == Token.stringConstant) {
+          if (nextSymbol == Token.plusSymbol) {
+            reportError("cannot be added to " + curTokRef + " (" + curType.name + ")");
+          } else if (nextSymbol == Token.minusSymbol) {
+            reportError("cannot be subtracted from " + curTokRef + " (" + curType.name + ")");
+          }
         }
       }
 
-      _term_();
+      _expression_();
     }
 
     finishNonterminal("Expression");
-    return curVar;
+    return curType;
   }
 
   /*
@@ -408,23 +416,23 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   */
   public Variable.Type _term_() throws IOException, CompilationException {
     commenceNonterminal("Term");
-    Variable.Type varType = _factor_();
+    Variable.Type curType = _factor_();
 
     int nextSymbol = nextToken.symbol;
 
     if (nextSymbol == Token.timesSymbol || nextSymbol == Token.divideSymbol) {
       acceptTerminal(nextSymbol);
 
-      if (nextSymbol == Token.timesSymbol && varType == Variable.Type.STRING) {
-        reportError("cannot multiply " + nextToken.text + " with a string");
-      } else if (nextSymbol == Token.divideSymbol && varType == Variable.Type.STRING) {
-        reportError("cannot divide " + nextToken.text + " with a string");
+      if (nextSymbol == Token.timesSymbol && curType == Variable.Type.STRING) {
+        reportError("cannot multiply " + nextToken.text + " with a String");
+      } else if (nextSymbol == Token.divideSymbol && curType == Variable.Type.STRING) {
+        reportError("cannot divide " + nextToken.text + " with a String");
       }
       _term_();
     }
 
     finishNonterminal("Term");
-    return varType;
+    return curType;
   }
 
   /*
@@ -432,19 +440,19 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
   */
   public Variable.Type _factor_() throws IOException, CompilationException {
     commenceNonterminal("Factor");
-    Variable.Type varType = Variable.Type.UNKNOWN;
+    Variable.Type curType = Variable.Type.UNKNOWN;
     
     switch (nextToken.symbol) {
       case Token.identifier:
         // Get the type of this variable identifier (if exists)
         Variable v = checkIfDeclared(nextToken);
-        varType = v.type;
+        curType = v.type;
 
         acceptTerminal(Token.identifier);
         break;
       case Token.numberConstant:
         acceptTerminal(Token.numberConstant);
-        varType = Variable.Type.NUMBER;
+        curType = Variable.Type.NUMBER;
         break;
       case Token.leftParenthesis:
         acceptTerminal(Token.leftParenthesis);
@@ -457,7 +465,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     }
 
     finishNonterminal("Factor");
-    return varType;
+    return curType;
   }
 
   /**

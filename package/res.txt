@@ -1,0 +1,128 @@
+Programs Folder/program0
+OK
+
+Programs Folder/program1
+OK
+
+Programs Folder/program2
+Compilation Exception
+	Caused by compilation error parsing _statementPart_ on line 1
+	Caused by (Programs Folder/program2:1) found 'begim' (IDENTIFIER), expected begin on line 1
+
+STOP
+
+Programs Folder/program3
+Compilation Exception
+	Caused by compilation error parsing _statementPart_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statement_ on line 12
+	Caused by compilation error parsing _ifStatement_ on line 12
+	Caused by (Programs Folder/program3:12) found '' (EOF), expected if on line 12
+
+STOP
+
+Programs Folder/program4
+Compilation Exception
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+	Caused by compilation error parsing _whileStatement_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+	Caused by (Programs Folder/program4:8) found 'end' (end), expected a statement (if/while/procedure/until/for) on line 8
+
+STOP
+
+Programs Folder/program5
+Compilation Exception
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+	Caused by compilation error parsing _whileStatement_ on line 8
+	Caused by (Programs Folder/program5:8) found ';' (;), expected loop on line 8
+
+STOP
+
+Programs Folder/program6
+Compilation Exception
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _whileStatement_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _assignmentStatement_ on line 6
+	Caused by compilation error parsing _expression_ on line 6
+	Caused by compilation error parsing _term_ on line 6
+	Caused by compilation error parsing _factor_ on line 6
+	Caused by (Programs Folder/program6:6) found 'a' (IDENTIFIER), variable with identifier 'a' has not been declared on line 6
+
+STOP
+
+Programs Folder/program7
+Compilation Exception
+	Caused by compilation error parsing _statementPart_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statement_ on line 5
+	Caused by (Programs Folder/program7:5) found 'else' (else), expected a statement (if/while/procedure/until/for) on line 5
+
+STOP
+
+Programs Folder/program8
+Compilation Exception
+	Caused by (Programs Folder/program8:13) found 'call' (call), expected EOF on line 13
+
+STOP
+
+Programs Folder/program9
+OK
+
+Programs Folder/program10
+OK
+
+Programs Folder/program11
+OK
+
+Programs Folder/program12
+Compilation Exception
+	Caused by compilation error parsing _statementPart_ on line 2
+	Caused by compilation error parsing _statementList_ on line 2
+	Caused by compilation error parsing _statement_ on line 2
+	Caused by compilation error parsing _assignmentStatement_ on line 2
+	Caused by compilation error parsing _expression_ on line 2
+	Caused by compilation error parsing _term_ on line 2
+	Caused by compilation error parsing _factor_ on line 2
+	Caused by (Programs Folder/program12:2) found 'x1' (IDENTIFIER), variable with identifier 'x1' has not been declared on line 2
+
+STOP
+
+Programs Folder/program13
+Compilation Exception
+	Caused by compilation error parsing _statementPart_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statement_ on line 3
+	Caused by compilation error parsing _assignmentStatement_ on line 3
+	Caused by compilation error parsing _expression_ on line 3
+	Caused by compilation error parsing _term_ on line 3
+	Caused by (Programs Folder/program13:3) found '3' (NUMBER), cannot multiply 3 with a String on line 3
+
+STOP
+

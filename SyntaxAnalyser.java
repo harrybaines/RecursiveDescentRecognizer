@@ -467,6 +467,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
         if (nextToken.symbol == Token.identifier) {
           nextVar = checkIfDeclared(nextToken);
+
           // Don't allow subtraction of strings
           if (nextVar != null && (nextVar.type == Variable.Type.STRING && curType == Variable.Type.STRING)) {
             if (nextSymbol == Token.minusSymbol) {
@@ -498,7 +499,15 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
           }
         }
 
-        _expression_();
+        // Check if the resulting types aren't equal and if the whole expression is a string or the next term is a string
+        Variable.Type expressionType = _expression_();
+        if (curType != expressionType && (curType == Variable.Type.STRING || expressionType == Variable.Type.STRING)) {
+          if (nextSymbol == Token.plusSymbol) {
+            reportError("cannot add expressions of type Number to type String");
+          } else if (nextSymbol == Token.minusSymbol) {
+            reportError("cannot subtract expressions of type Number to type String");
+          } 
+        }
       }
 
       finishNonterminal("Expression");
@@ -568,7 +577,15 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
           }
         }
 
-        _term_();
+        // Check if the resulting types aren't equal and if the whole term is a string or the next term is a string
+        Variable.Type expressionType = _term_();
+        if (curType != expressionType && (curType == Variable.Type.STRING || expressionType == Variable.Type.STRING)) {
+          if (nextSymbol == Token.timesSymbol) {
+            reportError("cannot multiply terms of type Number with type String");
+          } else if (nextSymbol == Token.divideSymbol) {
+            reportError("cannot divide expressions of type Number with type String");
+          } 
+        }
       }
 
       finishNonterminal("Term");

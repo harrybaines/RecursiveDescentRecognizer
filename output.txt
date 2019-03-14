@@ -317,6 +317,8 @@ rggSUCCESS
 rggFILE Programs Folder/program2
 rggBEGIN StatementPart
     rggERROR (Programs Folder/program2:1) found 'begim' (IDENTIFIER), expected begin
+	Caused by compilation error parsing _statementPart_ on line 1
+
 
 rggFILE Programs Folder/program3
 rggBEGIN StatementPart
@@ -440,6 +442,41 @@ rggBEGIN StatementPart
               rggEND StatementList
               rggTOKEN end on line 10
                             rggERROR (Programs Folder/program3:12) found '' (EOF), expected if
+	Caused by compilation error parsing _statementPart_ on line 12
+
+	Caused by compilation error parsing _statementPart_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+
+	Caused by compilation error parsing _statementPart_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+
+	Caused by compilation error parsing _statementPart_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+
+	Caused by compilation error parsing _statementPart_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+
+	Caused by compilation error parsing _statementPart_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statement_ on line 12
+
+	Caused by compilation error parsing _statementPart_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statementList_ on line 12
+	Caused by compilation error parsing _statement_ on line 12
+	Caused by compilation error parsing _ifStatement_ on line 12
+
 
 rggFILE Programs Folder/program4
 rggBEGIN StatementPart
@@ -547,6 +584,83 @@ rggBEGIN StatementPart
                   rggTOKEN ; on line 7
                   rggBEGIN StatementList
                     rggERROR (Programs Folder/program4:8) found 'end' (end), expected a statement (if/while/procedure/until/for)
+	Caused by compilation error parsing _statementPart_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+	Caused by compilation error parsing _whileStatement_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+	Caused by compilation error parsing _whileStatement_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+	Caused by compilation error parsing _whileStatement_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+	Caused by compilation error parsing _whileStatement_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+	Caused by compilation error parsing _whileStatement_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+
 
 rggFILE Programs Folder/program5
 rggBEGIN StatementPart
@@ -655,6 +769,41 @@ rggBEGIN StatementPart
               rggEND StatementList
               rggTOKEN end on line 8
                             rggERROR (Programs Folder/program5:8) found ';' (;), expected loop
+	Caused by compilation error parsing _statementPart_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+
+	Caused by compilation error parsing _statementPart_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statementList_ on line 8
+	Caused by compilation error parsing _statement_ on line 8
+	Caused by compilation error parsing _whileStatement_ on line 8
+
 
 rggFILE Programs Folder/program6
 rggBEGIN StatementPart
@@ -724,7 +873,111 @@ rggBEGIN StatementPart
                     rggBEGIN Expression
                       rggBEGIN Term
                         rggBEGIN Factor
-                          rggERROR (Programs Folder/program6:6) found 'a' (IDENTIFIER), 'a' has not been declared
+                          rggERROR (Programs Folder/program6:6) found 'a' (IDENTIFIER), variable with identifier 'a' has not been declared
+	Caused by compilation error parsing _statementPart_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _whileStatement_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _whileStatement_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _whileStatement_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _whileStatement_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _assignmentStatement_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _whileStatement_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _assignmentStatement_ on line 6
+	Caused by compilation error parsing _expression_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _whileStatement_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _assignmentStatement_ on line 6
+	Caused by compilation error parsing _expression_ on line 6
+	Caused by compilation error parsing _term_ on line 6
+
+	Caused by compilation error parsing _statementPart_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _whileStatement_ on line 6
+	Caused by compilation error parsing _statementList_ on line 6
+	Caused by compilation error parsing _statement_ on line 6
+	Caused by compilation error parsing _assignmentStatement_ on line 6
+	Caused by compilation error parsing _expression_ on line 6
+	Caused by compilation error parsing _term_ on line 6
+	Caused by compilation error parsing _factor_ on line 6
+
 
 rggFILE Programs Folder/program7
 rggBEGIN StatementPart
@@ -776,6 +1029,33 @@ rggBEGIN StatementPart
         rggTOKEN ; on line 4
         rggBEGIN StatementList
           rggERROR (Programs Folder/program7:5) found 'else' (else), expected a statement (if/while/procedure/until/for)
+	Caused by compilation error parsing _statementPart_ on line 5
+
+	Caused by compilation error parsing _statementPart_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+
+	Caused by compilation error parsing _statementPart_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+
+	Caused by compilation error parsing _statementPart_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+
+	Caused by compilation error parsing _statementPart_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+
+	Caused by compilation error parsing _statementPart_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statementList_ on line 5
+	Caused by compilation error parsing _statement_ on line 5
+
 
 rggFILE Programs Folder/program8
 rggBEGIN StatementPart
@@ -1076,6 +1356,7 @@ rggBEGIN StatementPart
               rggTOKEN end on line 7
               rggTOKEN loop on line 7
             rggEND ForStatement
+            rggDROP Variable: x2 <Number>
           rggEND Statement
           rggTOKEN ; on line 7
           rggBEGIN StatementList
@@ -1256,6 +1537,7 @@ rggBEGIN StatementPart
           rggTOKEN end on line 7
           rggTOKEN loop on line 7
         rggEND ForStatement
+        rggDROP Variable: x1 <Number>
       rggEND Statement
       rggTOKEN ; on line 7
       rggBEGIN StatementList
@@ -1356,7 +1638,42 @@ rggBEGIN StatementPart
         rggBEGIN Expression
           rggBEGIN Term
             rggBEGIN Factor
-              rggERROR (Programs Folder/program12:2) found 'x1' (IDENTIFIER), 'x1' has not been declared
+              rggERROR (Programs Folder/program12:2) found 'x1' (IDENTIFIER), variable with identifier 'x1' has not been declared
+	Caused by compilation error parsing _statementPart_ on line 2
+
+	Caused by compilation error parsing _statementPart_ on line 2
+	Caused by compilation error parsing _statementList_ on line 2
+
+	Caused by compilation error parsing _statementPart_ on line 2
+	Caused by compilation error parsing _statementList_ on line 2
+	Caused by compilation error parsing _statement_ on line 2
+
+	Caused by compilation error parsing _statementPart_ on line 2
+	Caused by compilation error parsing _statementList_ on line 2
+	Caused by compilation error parsing _statement_ on line 2
+	Caused by compilation error parsing _assignmentStatement_ on line 2
+
+	Caused by compilation error parsing _statementPart_ on line 2
+	Caused by compilation error parsing _statementList_ on line 2
+	Caused by compilation error parsing _statement_ on line 2
+	Caused by compilation error parsing _assignmentStatement_ on line 2
+	Caused by compilation error parsing _expression_ on line 2
+
+	Caused by compilation error parsing _statementPart_ on line 2
+	Caused by compilation error parsing _statementList_ on line 2
+	Caused by compilation error parsing _statement_ on line 2
+	Caused by compilation error parsing _assignmentStatement_ on line 2
+	Caused by compilation error parsing _expression_ on line 2
+	Caused by compilation error parsing _term_ on line 2
+
+	Caused by compilation error parsing _statementPart_ on line 2
+	Caused by compilation error parsing _statementList_ on line 2
+	Caused by compilation error parsing _statement_ on line 2
+	Caused by compilation error parsing _assignmentStatement_ on line 2
+	Caused by compilation error parsing _expression_ on line 2
+	Caused by compilation error parsing _term_ on line 2
+	Caused by compilation error parsing _factor_ on line 2
+
 
 rggFILE Programs Folder/program13
 rggBEGIN StatementPart
@@ -1383,6 +1700,41 @@ rggBEGIN StatementPart
               rggEND Factor
               rggTOKEN * on line 3
               rggERROR (Programs Folder/program13:3) found '3' (NUMBER), cannot multiply 3 with a String
+	Caused by compilation error parsing _statementPart_ on line 3
+
+	Caused by compilation error parsing _statementPart_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+
+	Caused by compilation error parsing _statementPart_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+
+	Caused by compilation error parsing _statementPart_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statement_ on line 3
+
+	Caused by compilation error parsing _statementPart_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statement_ on line 3
+	Caused by compilation error parsing _assignmentStatement_ on line 3
+
+	Caused by compilation error parsing _statementPart_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statement_ on line 3
+	Caused by compilation error parsing _assignmentStatement_ on line 3
+	Caused by compilation error parsing _expression_ on line 3
+
+	Caused by compilation error parsing _statementPart_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statementList_ on line 3
+	Caused by compilation error parsing _statement_ on line 3
+	Caused by compilation error parsing _assignmentStatement_ on line 3
+	Caused by compilation error parsing _expression_ on line 3
+	Caused by compilation error parsing _term_ on line 3
+
 Programs Folder/program14 does not exist
 
 rggFINISH

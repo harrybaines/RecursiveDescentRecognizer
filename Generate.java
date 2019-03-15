@@ -25,7 +25,7 @@ public class Generate extends AbstractGenerate {
    * Reports an error to the user through the use of a CompilationException.
    * This takes the token found along with an explanatory message and returns a CompilationException.
    *
-   * @param token the next token found in the input stream.
+   * @param token the token found in the input stream where the error occured.
    * @param explanatoryMessage the useful error message to display.
    * @throws CompilationException reporting this information.
    */

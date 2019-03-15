@@ -45,7 +45,9 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     }
   }
 
-  /*** Non-terminal methods ***/
+  /** ================================================================================
+          Non-terminal methods to parse non-terminals from the provided grammar
+      ================================================================================ **/
 
   /**
     Begin processing the first (top level) token.
@@ -305,10 +307,14 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
       acceptTerminal(Token.forSymbol);
       acceptTerminal(Token.leftParenthesis);
+
+      // Store first assigned variable
       Variable firstTempVariable = _assignmentStatement_();
       acceptTerminal(Token.semicolonSymbol);
       _condition_();
       acceptTerminal(Token.semicolonSymbol);
+
+      // Store second assigned variable
       Variable secondTempVariable =_assignmentStatement_();
       acceptTerminal(Token.rightParenthesis);
 
@@ -341,7 +347,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
       commenceNonterminal("ArgumentList");
       
       // Check to see if a variable with this identifier actually exists
-      checkIfDeclared(nextToken);
+      checkIfDeclared(nextToken.text);
       acceptTerminal(Token.identifier);
 
       if (nextToken.symbol == Token.commaSymbol) {
@@ -370,13 +376,13 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
       commenceNonterminal("Condition");
 
       // Check to see if a variable with this identifier actually exists
-      checkIfDeclared(nextToken);
+      checkIfDeclared(nextToken.text);
       acceptTerminal(Token.identifier);
       _conditionalOperator_();
 
       switch (nextToken.symbol) {
         case Token.identifier:
-          checkIfDeclared(nextToken);
+          checkIfDeclared(nextToken.text);
           acceptTerminal(Token.identifier);
           break;
         case Token.numberConstant:
@@ -466,16 +472,16 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         Variable nextVar = null;
 
         if (nextToken.symbol == Token.identifier) {
-          nextVar = checkIfDeclared(nextToken);
+          nextVar = checkIfDeclared(nextToken.text);
 
-          // Don't allow subtraction of strings
+          // Don't allow subtraction of strings (but skip + because that is allowed)
           if (nextVar != null && (nextVar.type == Variable.Type.STRING && curType == Variable.Type.STRING)) {
             if (nextSymbol == Token.minusSymbol) {
               reportError("cannot subtract variable of type " + nextVar.type + " from " + curTokRef + " (" + curType.name + ")");
             }
           }
 
-          // Cannot subtract strings with strings or any other type
+          // Cannot add or subtract strings with any other type
           if (nextVar != null && (nextVar.type == Variable.Type.STRING && curType != Variable.Type.STRING) || (nextVar.type != Variable.Type.STRING && curType == Variable.Type.STRING)) {
             if (nextSymbol == Token.plusSymbol) {
               reportError("cannot add variable of type " + nextVar.type + " to " + curTokRef + " (" + curType.name + ")");
@@ -484,6 +490,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
             }
           }
         } else {
+          // Cannot allow adding plain strings to anything other than strings
           if (curType == Variable.Type.STRING && nextToken.symbol != Token.stringConstant) {
             if (nextSymbol == Token.plusSymbol) {
               reportError("cannot be added to " + curTokRef + " (" + curType.name + ")");
@@ -543,7 +550,8 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
         Variable nextVar = null;
 
         if (nextToken.symbol == Token.identifier) {
-          nextVar = checkIfDeclared(nextToken);
+          nextVar = checkIfDeclared(nextToken.text);
+
           // Don't allow multiplication or division of strings
           if (nextVar != null && (nextVar.type == Variable.Type.STRING && curType == Variable.Type.STRING)) {
             if (nextSymbol == Token.timesSymbol) {
@@ -562,6 +570,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
             }
           }
         } else {
+          // Cannot allow multiplying or dividing plain strings with anything other than strings
           if (curType == Variable.Type.STRING && nextToken.symbol != Token.stringConstant) {
             if (nextSymbol == Token.timesSymbol) {
               reportError("cannot multiply " + nextToken.text + " with a String");
@@ -612,7 +621,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
       switch (nextToken.symbol) {
         case Token.identifier:
           // Get the type of this variable identifier (if exists)
-          Variable v = checkIfDeclared(nextToken);
+          Variable v = checkIfDeclared(nextToken.text);
           curType = v.type;
 
           acceptTerminal(Token.identifier);
@@ -638,7 +647,9 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
     return curType;
   }
 
-  /*** Error methods, variable declaration/destruction methods and output methods ***/
+  /** ==========================================================================================
+          Error methods, variable declaration/destruction methods and output methods
+      ========================================================================================== **/
 
   /**
    * Reports an error to the output.txt file and throws a CompilationException at the end.
@@ -663,22 +674,22 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
   /**
    * Checks if a provided token has been declared yet based on its text (i.e. identifier).
-   * @param token the token to check.
+   * @param identifier the identifier to check.
    * @throws IOException if an IOException occured.
    * @throws CompilationException if a compilation error occured.
    * @return the declared variable.
    */
-  public Variable checkIfDeclared(Token token) throws IOException, CompilationException {
-    Variable v = myGenerate.getVariable(token.text);
+  public Variable checkIfDeclared(String identifier) throws IOException, CompilationException {
+    Variable v = myGenerate.getVariable(identifier);
     if (v == null) {
-      reportError("variable with identifier '" + token.text + "' has not been declared");
+      reportError("variable with identifier '" + identifier + "' has not been declared");
     }
     return v;
   }
 
   /**
    * Commences a non terminal symbol by calling the relevant method in the Generate class.
-   * This method also provides output indentation for easier reading (+ less repetition).
+   * This method also provides output indentation for easier reading (+ less code repetition).
    * @param nonTerminal the non terminal string to commence.
    */
   public void commenceNonterminal(String nonTerminal) {
@@ -689,7 +700,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
 
   /**
    * Finishes a non terminal symbol by calling the relevant method in the Generate class.
-   * This method also provides output indentation for easier reading (+ less repetition).
+   * This method also provides output indentation for easier reading (+ less code repetition).
    * @param nonTerminal the non terminal string to finish.
    */
   public void finishNonterminal(String nonTerminal) {

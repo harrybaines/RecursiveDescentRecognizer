@@ -130,7 +130,7 @@ public class SyntaxAnalyser extends AbstractSyntaxAnalyser {
           commenceNonterminal("Statement");
           _procedureStatement_();
           break;
-        case (Token.untilSymbol):
+        case (Token.doSymbol):
           commenceNonterminal("Statement");
           _untilStatement_();
           break;
